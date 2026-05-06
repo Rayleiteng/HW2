@@ -70,16 +70,16 @@ int main() {
         ERROR_RETURN(retval);
     
     // Add Total L1 DCache Misses event to the EventSet 
-    // if ( (retval = PAPI_add_event(EventSet, PAPI_L1_ICM)) != PAPI_OK)
-    //     ERROR_RETURN(retval);
+    if ( (retval = PAPI_add_event(EventSet, PAPI_L1_ICM)) != PAPI_OK)
+        ERROR_RETURN(retval);
 
     // Add Total L2 Total Cache Misses event to the EventSet 
     if ( (retval = PAPI_add_event(EventSet, PAPI_L2_TCM)) != PAPI_OK)
         ERROR_RETURN(retval); 
 
     //Add Request for access to shared cache line (SMP) toi the EventSet
-    // if ( (retval = PAPI_add_event(EventSet, PAPI_CA_SHR)) != PAPI_OK)
-    //     ERROR_RETURN(retval); 
+    if ( (retval = PAPI_add_event(EventSet, PAPI_CA_SHR)) != PAPI_OK)
+        ERROR_RETURN(retval); 
     
     // Start counting 
     if((retval=PAPI_start(EventSet)) != PAPI_OK)

@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
     int num;
     int EventSet = PAPI_NULL;
     PAPI_option_t options;
-    long long values[3] = {0, 0, 0};
+    long long values[4] = {0, 0, 0, 0};
 
     if (argc > 1) {
         size = atoi(argv[1]);
@@ -68,7 +68,8 @@ int main(int argc, char *argv[]) {
 
     if ((retval = PAPI_add_event(EventSet, PAPI_TOT_INS)) != PAPI_OK) ERROR_RETURN(retval);
     if ((retval = PAPI_add_event(EventSet, PAPI_TOT_CYC)) != PAPI_OK) ERROR_RETURN(retval);
-    if ((retval = PAPI_add_event(EventSet, PAPI_L1_ICM)) != PAPI_OK) ERROR_RETURN(retval);
+    if ((retval = PAPI_add_event(EventSet, PAPI_L1_DCM)) != PAPI_OK) ERROR_RETURN(retval);
+    if ((retval = PAPI_add_event(EventSet, PAPI_L2_TCM)) != PAPI_OK) ERROR_RETURN(retval);
 
     if ((retval = PAPI_start(EventSet)) != PAPI_OK) {
         ERROR_RETURN(retval);
@@ -80,9 +81,9 @@ int main(int argc, char *argv[]) {
         ERROR_RETURN(retval);
     }
 
-    printf("run,size,hwctrs,total_instructions,total_cycles,l1_icache_misses\n");
-    printf("2,%d,%d,%lld,%lld,%lld\n",
-           size, num, values[0], values[1], values[2]);
+    printf("run,size,hwctrs,total_instructions,total_cycles,l1_dcache_misses,l2_total_cache_misses\n");
+    printf("1,%d,%d,%lld,%lld,%lld,%lld\n",
+           size, num, values[0], values[1], values[2], values[3]);
 
     PAPI_shutdown();
     return 0;

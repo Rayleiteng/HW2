@@ -68,7 +68,7 @@ int main(int argc, char *argv[]) {
 
     if ((retval = PAPI_add_event(EventSet, PAPI_TOT_INS)) != PAPI_OK) ERROR_RETURN(retval);
     if ((retval = PAPI_add_event(EventSet, PAPI_TOT_CYC)) != PAPI_OK) ERROR_RETURN(retval);
-    if ((retval = PAPI_add_event(EventSet, PAPI_L1_ICM)) != PAPI_OK) ERROR_RETURN(retval);
+    if ((retval = PAPI_add_event(EventSet, PAPI_L3_TCM)) != PAPI_OK) ERROR_RETURN(retval);
 
     if ((retval = PAPI_start(EventSet)) != PAPI_OK) {
         ERROR_RETURN(retval);
@@ -80,8 +80,8 @@ int main(int argc, char *argv[]) {
         ERROR_RETURN(retval);
     }
 
-    printf("run,size,hwctrs,total_instructions,total_cycles,l1_icache_misses\n");
-    printf("2,%d,%d,%lld,%lld,%lld\n",
+    printf("run,size,hwctrs,total_instructions,total_cycles,llc_misses\n");
+    printf("3,%d,%d,%lld,%lld,%lld\n",
            size, num, values[0], values[1], values[2]);
 
     PAPI_shutdown();

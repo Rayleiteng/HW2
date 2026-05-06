@@ -1,0 +1,107 @@
+\section{Parallel Cache Behavior}
+
+The original SMP cache-line events requested in the assignment were not
+available on the assigned machine. Following the instructor's suggestion, I
+used available replacement events: \texttt{PAPI\_RES\_STL},
+\texttt{PAPI\_STL\_ICY}, and \texttt{PAPI\_BR\_PRC}. The program was executed
+with 1, 2, 4, 8, and 16 threads, and each thread ran the same task.
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{r|r|r|r|r|r|r|r|r}
+\hline
+Size & L1-I Misses & L1-D Misses & L2 Misses & \# instructions & \# cycles & Resource Stalls & No-Issue Cycles & Time (s) \\
+\hline
+1000       & 40    & 19    & 27  & 10189       & 44974       & 36995       & 2531     & 0.000390607 \\
+10000      & 48    & 10    & 26  & 100195      & 414911      & 364308      & 6501     & 0.000313080 \\
+100000     & 75    & 41    & 33  & 1000193     & 4111080     & 3700030     & 2607     & 0.003301547 \\
+1000000    & 90    & 43    & 26  & 10000195    & 41009597    & 36983432    & 13376    & 0.013458237 \\
+10000000   & 228   & 238   & 89  & 100000259   & 410133082   & 369959444   & 76788    & 0.137406677 \\
+100000000  & 2508  & 1737  & 51  & 1000000853  & 4100471406  & 3680111611  & 984580   & 1.326229491 \\
+1000000000 & 12771 & 16401 & 492 & 10000007249 & 41016738731 & 36810267549 & 16009129 & 13.282110194 \\
+\hline
+\end{tabular}}
+\caption{Parallel cache behavior with 1 thread}
+\label{tab:parallel-cache-1-thread}
+\end{table}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{r|r|r|r|r|r|r|r|r}
+\hline
+Size & L1-I Misses & L1-D Misses & L2 Misses & \# instructions & \# cycles & Resource Stalls & No-Issue Cycles & Time (s) \\
+\hline
+1000       & 81    & 30    & 58   & 20390       & 90990       & 74881       & 7655     & 0.000862104 \\
+10000      & 78    & 27    & 60   & 200388      & 831684      & 740622      & 7058     & 0.000985395 \\
+100000     & 90    & 60    & 62   & 2000378     & 8210606     & 7389619     & 13474    & 0.001724931 \\
+1000000    & 155   & 109   & 69   & 20000404    & 82031263    & 73922815    & 28990    & 0.018127674 \\
+10000000   & 312   & 340   & 65   & 200000556   & 820475522   & 739307369   & 711486   & 0.138098514 \\
+100000000  & 2749  & 3298  & 232  & 2000002083  & 8204603600  & 7390373016  & 2339605  & 1.336010750 \\
+1000000000 & 18914 & 31725 & 1220 & 20000015873 & 82030085629 & 73609545723 & 25426157 & 13.289833832 \\
+\hline
+\end{tabular}}
+\caption{Parallel cache behavior with 2 threads}
+\label{tab:parallel-cache-2-threads}
+\end{table}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{r|r|r|r|r|r|r|r|r}
+\hline
+Size & L1-I Misses & L1-D Misses & L2 Misses & \# instructions & \# cycles & Resource Stalls & No-Issue Cycles & Time (s) \\
+\hline
+1000       & 157   & 70    & 121  & 40774       & 181653       & 149610       & 15465    & 0.001242690 \\
+10000      & 156   & 92    & 138  & 400762      & 1656303      & 1480449      & 17059    & 0.001448502 \\
+100000     & 238   & 91    & 131  & 4000796     & 16439668     & 14780087     & 17355    & 0.004021185 \\
+1000000    & 394   & 240   & 132  & 40000836    & 164104001    & 147880747    & 132478   & 0.020924544 \\
+10000000   & 1023  & 959   & 229  & 400001158   & 1640643994   & 1479667119   & 406031   & 0.148921807 \\
+100000000  & 4973  & 7442  & 457  & 4000004329  & 16405086817  & 14759238998  & 5091454  & 1.346433381 \\
+1000000000 & 42410 & 89310 & 2218 & 40000035896 & 164128637427 & 146695760794 & 50519908 & 13.360243549 \\
+\hline
+\end{tabular}}
+\caption{Parallel cache behavior with 4 threads}
+\label{tab:parallel-cache-4-threads}
+\end{table}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{r|r|r|r|r|r|r|r|r}
+\hline
+Size & L1-I Misses & L1-D Misses & L2 Misses & \# instructions & \# cycles & Resource Stalls & No-Issue Cycles & Time (s) \\
+\hline
+1000       & 218    & 142    & 157  & 81537       & 368606       & 174455       & 32961     & 0.002085213 \\
+10000      & 564    & 169    & 237  & 801534      & 3319028      & 2141702      & 20536     & 0.003648260 \\
+100000     & 291    & 265    & 194  & 8001561     & 32878496     & 21386782     & 56182     & 0.004851287 \\
+1000000    & 533    & 559    & 206  & 80001742    & 333246006    & 213736324    & 249863    & 0.020514447 \\
+10000000   & 3028   & 1754   & 469  & 800002303   & 3285490467   & 1794884451   & 7716351   & 0.152408176 \\
+100000000  & 12690  & 14809  & 1179 & 8000009421  & 32879846068  & 26842251877  & 13059798  & 1.352831527 \\
+1000000000 & 103293 & 196043 & 5810 & 80000085966 & 328184804434 & 274295170410 & 215210212 & 13.372139220 \\
+\hline
+\end{tabular}}
+\caption{Parallel cache behavior with 8 threads}
+\label{tab:parallel-cache-8-threads}
+\end{table}
+
+\begin{table}[H]
+\centering
+\resizebox{\textwidth}{!}{
+\begin{tabular}{r|r|r|r|r|r|r|r|r}
+\hline
+Size & L1-I Misses & L1-D Misses & L2 Misses & \# instructions & \# cycles & Resource Stalls & No-Issue Cycles & Time (s) \\
+\hline
+1000       & 435    & 278    & 326  & 163035       & 816327       & 264972       & 67386     & 0.012234183 \\
+10000      & 472    & 345    & 283  & 1603208      & 6757908      & 2660600      & 193099    & 0.010675016 \\
+100000     & 541    & 875    & 388  & 16003197     & 65831616     & 30737957     & 300313    & 0.011784419 \\
+1000000    & 744    & 1293   & 374  & 160003653    & 656860884    & 267290038    & 634665    & 0.030775440 \\
+10000000   & 2848   & 4143   & 440  & 1600004917   & 6562441463   & 2785279158   & 3695525   & 0.146430914 \\
+100000000  & 16070  & 29201  & 1118 & 16000020410  & 65687180046  & 26485284100  & 52309871  & 1.368626146 \\
+1000000000 & 175486 & 285138 & 6188 & 160000297613 & 656858277892 & 265011751979 & 665720840 & 13.952013982 \\
+\hline
+\end{tabular}}
+\caption{Parallel cache behavior with 16 threads}
+\label{tab:parallel-cache-16-threads}
+\end{table}
